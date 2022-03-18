@@ -1,5 +1,6 @@
 const DEFAULT_OPTIONS = {
   autoClose: 5000,
+  position: "top-right",
 };
 export default class Toast {
   #toastElem;
@@ -7,11 +8,7 @@ export default class Toast {
   constructor(options) {
     this.#toastElem = document.createElement("div");
     this.#toastElem.classList.add("toast");
-    Object.entries({ ...DEFAULT_OPTIONS, ...options }).forEach(
-      ([key, value]) => {
-        this[key] = value;
-      }
-    );
+    this.update({ ...DEFAULT_OPTIONS, ...options });
   }
 
   set autoClose(value) {
@@ -31,11 +28,15 @@ export default class Toast {
   set Text(value) {
     this.#toastElem.textContent = value;
   }
+  update(options) {
+    Object.entries(options).forEach(([key, value]) => {
+      this[key] = value;
+    });
+  }
   // show() {
   //   const toastElem = document.createElement("div");
   //   toastElem.classList.add("toast");
   // }
-  update() {}
   remove() {
     const container = this.#toastElem.parentElement;
     this.#toastElem.remove();
