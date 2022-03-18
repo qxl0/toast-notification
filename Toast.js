@@ -1,5 +1,6 @@
 export default class Toast {
   #toastElem;
+  #autoCloseTimeout;
   constructor(options) {
     this.#toastElem = document.createElement("div");
     this.#toastElem.classList.add("toast");
@@ -8,6 +9,12 @@ export default class Toast {
     });
   }
 
+  set autoClose(value) {
+    if (value == false) return;
+    this.#autoCloseTimeout = setTimeout(() => {
+      this.remove();
+    }, value);
+  }
   set position(value) {
     const selector = `.toast-container[data-position="${value}"]`;
     const container =
@@ -23,7 +30,12 @@ export default class Toast {
   //   toastElem.classList.add("toast");
   // }
   update() {}
-  remove() {}
+  remove() {
+    const container = this.#toastElem.parentElement;
+    this.#toastElem.remove();
+    if (container.hasChildNodes()) return;
+    container.remove();
+  }
 }
 
 function createContainer(position) {
