@@ -1,0 +1,16 @@
+.toast {
+  box-sizing: border-box;
+  padding: 1rem;
+  background-color: white;
+  border: 1px solid #333;
+  border-radius: 0.25rem;
+  position: relative;
+  max-width: 250px;
+}
+
+.toast::after {
+  content: "\00D7";
+  position: absolute;
+  top: 2px;
+  right: 5px;
+}
