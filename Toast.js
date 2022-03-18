@@ -9,7 +9,14 @@ export default class Toast {
   }
 
   set position(value) {
-    console.log(value);
+    const selector = `.toast-container[data-position="${value}"]`;
+    const container =
+      document.querySelector(selector) || createContainer(value);
+    container.append(this.#toastElem);
+  }
+
+  set Text(value) {
+    this.#toastElem.textContent = value;
   }
   // show() {
   //   const toastElem = document.createElement("div");
@@ -17,4 +24,12 @@ export default class Toast {
   // }
   update() {}
   remove() {}
+}
+
+function createContainer(position) {
+  const container = document.createElement("div");
+  container.classList.add("toast-container");
+  container.dataset.position = position;
+  document.body.appendChild(container);
+  return container;
 }
