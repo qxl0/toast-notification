@@ -14,3 +14,15 @@
   top: 2px;
   right: 5px;
 }
+
+.toast-container {
+  position: fixed;
+  margin: 10px;
+}
+
+.toast-container[data-position^="top-"] {
+  top: 0;
+}
+.toast-container[data-position$="-right"] {
+  right: 0;
+}
