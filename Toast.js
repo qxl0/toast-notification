@@ -11,8 +11,8 @@ export default class Toast {
   constructor(options) {
     this.#toastElem = document.createElement("div");
     this.#toastElem.classList.add("toast");
-    this.update({ ...DEFAULT_OPTIONS, ...options });
     this.#removeBinded = this.remove.bind(this);
+    this.update({ ...DEFAULT_OPTIONS, ...options });
   }
 
   set autoClose(value) {
@@ -39,9 +39,9 @@ export default class Toast {
   set canClose(value) {
     console.log(value);
     if (value) {
-      document.addEventListener("click", this.#removeBinded);
+      this.#toastElem.addEventListener("click", this.#removeBinded);
     } else {
-      document.removeEventListener("click", this.#removeBinded);
+      this.#toastElem.removeEventListener("click", this.#removeBinded);
     }
   }
   update(options) {
