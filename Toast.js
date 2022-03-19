@@ -62,10 +62,10 @@ export default class Toast {
     this.#toastElem.classList.remove("show");
     this.#toastElem.addEventListener("transitionend", () => {
       this.#toastElem.remove();
+      if (container.hasChildNodes()) return;
+      container.remove();
     });
-    if (container.hasChildNodes()) return;
     this.onClose();
-    container.remove();
   }
 }
 
