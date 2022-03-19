@@ -5,5 +5,5 @@ const mytoast = new Toast({
 });
 
 setTimeout(() => {
-  mytoast.update({ Text: "Bye" });
+  mytoast.update({ position: "top-left" });
 }, 1000);

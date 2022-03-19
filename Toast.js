@@ -19,10 +19,13 @@ export default class Toast {
     }, value);
   }
   set position(value) {
+    const currentContainer = this.#toastElem.parentElement;
     const selector = `.toast-container[data-position="${value}"]`;
     const container =
       document.querySelector(selector) || createContainer(value);
     container.append(this.#toastElem);
+    if (currentContainer.hasChildNodes()) return;
+    currentContainer.remove();
   }
 
   set Text(value) {
