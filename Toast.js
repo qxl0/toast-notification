@@ -37,7 +37,7 @@ export default class Toast {
   }
 
   set canClose(value) {
-    console.log(value);
+    this.#toastElem.classList.toggle("can-close", value);
     if (value) {
       this.#toastElem.addEventListener("click", this.#removeBinded);
     } else {
