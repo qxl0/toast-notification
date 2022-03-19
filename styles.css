@@ -6,8 +6,13 @@
   border-radius: 0.25rem;
   position: relative;
   cursor: pointer;
+  transform: translateX(110%);
+  transition: transform 250ms ease-in-out;
 }
 
+.toast.show {
+  transform: translateX(0);
+}
 .toast.can-close::after {
   content: "\00D7";
   position: absolute;

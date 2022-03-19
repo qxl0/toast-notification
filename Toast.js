@@ -11,6 +11,9 @@ export default class Toast {
   constructor(options) {
     this.#toastElem = document.createElement("div");
     this.#toastElem.classList.add("toast");
+    requestAnimationFrame(() => {
+      this.#toastElem.classList.add("show");
+    });
     this.#removeBinded = this.remove.bind(this);
     this.update({ ...DEFAULT_OPTIONS, ...options });
   }
