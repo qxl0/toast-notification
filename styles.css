@@ -6,7 +6,7 @@
   border-radius: 0.25rem;
   position: relative;
   cursor: pointer;
-  transition: transform 250ms ease-in-out;
+  transition: transform 300ms ease-in-out;
 }
 
 .toast-container[data-position$="-right"] .toast {
@@ -17,10 +17,13 @@
   transform: translateX(-110%);
 }
 
-.toast-container[data-position$="-center"] .toast {
-  transform: translateY(-110%);
+.toast-container[data-position="top-center"] .toast {
+  transform: translateY(-100vh);
 }
 
+.toast-container[data-position="bottom-center"] .toast {
+  transform: translateY(100vh);
+}
 .toast-container .toast.show {
   transform: translate(0, 0);
 }
