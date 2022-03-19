@@ -24,7 +24,7 @@ export default class Toast {
     const container =
       document.querySelector(selector) || createContainer(value);
     container.append(this.#toastElem);
-    if (currentContainer.hasChildNodes()) return;
+    if (!currentContainer || currentContainer.hasChildNodes()) return;
     currentContainer.remove();
   }
 
