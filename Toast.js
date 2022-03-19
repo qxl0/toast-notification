@@ -1,6 +1,7 @@
 const DEFAULT_OPTIONS = {
   autoClose: 5000,
   position: "top-right",
+  onClose: () => {},
 };
 export default class Toast {
   #toastElem;
@@ -31,6 +32,7 @@ export default class Toast {
   set Text(value) {
     this.#toastElem.textContent = value;
   }
+
   update(options) {
     Object.entries(options).forEach(([key, value]) => {
       this[key] = value;
@@ -44,6 +46,7 @@ export default class Toast {
     const container = this.#toastElem.parentElement;
     this.#toastElem.remove();
     if (container.hasChildNodes()) return;
+    this.onClose();
     container.remove();
   }
 }
