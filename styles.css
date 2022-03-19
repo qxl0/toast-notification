@@ -6,11 +6,18 @@
   border-radius: 0.25rem;
   position: relative;
   cursor: pointer;
-  transform: translateX(110%);
   transition: transform 250ms ease-in-out;
 }
 
-.toast.show {
+.toast-container[data-position$="-right"] .toast {
+  transform: translateX(110%);
+}
+
+.toast-container[data-position$="-left"] .toast {
+  transform: translateX(-110%);
+}
+
+.toast-container .toast.show {
   transform: translateX(0);
 }
 .toast.can-close::after {
