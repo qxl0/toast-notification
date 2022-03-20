@@ -13,7 +13,9 @@ export default class Toast {
   #visibleSince;
   #autoClose;
   #progressInterval;
-  #paused = false;
+  #pause = false;
+  #unpause = false;
+  #hoverPause;
   constructor(options) {
     this.#toastElem = document.createElement("div");
     this.#toastElem.classList.add("toast");
@@ -22,6 +24,8 @@ export default class Toast {
       this.#toastElem.classList.add("show");
     });
     this.#removeBinded = this.remove.bind(this);
+    this.#pause = () => (this.#pause = true);
+    this.#unpause = () => (this.#unpause = true);
     this.update({ ...DEFAULT_OPTIONS, ...options });
   }
 
@@ -71,7 +75,15 @@ export default class Toast {
     }
   }
 
-  set pauseOnHover(value) {}
+  set pauseOnHover(value) {
+    if (value) {
+      this.#toastElem.addEventListener("mouseover", this.#unpause);
+      this.#toastElem.addEventListener("mouseleave", this.#pause);
+    } else {
+      this.#toastElem.removeEventListener("mouseover", this.#unpause);
+      this.#toastElem.removeEventListener("mouseover", this.#pause);
+    }
+  }
   update(options) {
     Object.entries(options).forEach(([key, value]) => {
       this[key] = value;
