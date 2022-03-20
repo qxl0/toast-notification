@@ -13,6 +13,7 @@ export default class Toast {
   #visibleSince;
   #autoClose;
   #progressInterval;
+  #paused = false;
   constructor(options) {
     this.#toastElem = document.createElement("div");
     this.#toastElem.classList.add("toast");
@@ -69,6 +70,8 @@ export default class Toast {
       }, 10);
     }
   }
+
+  set pauseOnHover(value) {}
   update(options) {
     Object.entries(options).forEach(([key, value]) => {
       this[key] = value;
