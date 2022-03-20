@@ -3,6 +3,8 @@ const DEFAULT_OPTIONS = {
   position: "top-right",
   onClose: () => {},
   canClose: true,
+
+  showProgress: true,
 };
 export default class Toast {
   #toastElem;
@@ -46,6 +48,10 @@ export default class Toast {
     } else {
       this.#toastElem.removeEventListener("click", this.#removeBinded);
     }
+  }
+
+  set showProgress(value) {
+    this.#toastElem.classList.toggle("progress", value);
   }
   update(options) {
     Object.entries(options).forEach(([key, value]) => {

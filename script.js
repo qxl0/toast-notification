@@ -5,5 +5,6 @@ document.querySelector("button").addEventListener("click", () => {
     Text: "Hello World",
     autoClose: 1000,
     position: "top-right",
+    showProgress: true,
   });
 });

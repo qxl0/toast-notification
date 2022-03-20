@@ -27,6 +27,17 @@
 .toast-container .toast.show {
   transform: translate(0, 0);
 }
+
+.toast.progress::before {
+  content: "";
+  position: absolute;
+  background-color: blue;
+  height: 2px;
+  width: calc(100% * var(--progress, 50));
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
 .toast.can-close::after {
   content: "\00D7";
   position: absolute;
