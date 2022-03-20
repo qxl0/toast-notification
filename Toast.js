@@ -63,7 +63,7 @@ export default class Toast {
         const timeVisible = new Date() - this.#visibleSince;
         this.#toastElem.style.setProperty(
           "--progress",
-          timeVisible / this.#autoClose
+          1 - timeVisible / this.#autoClose
         );
       }, 10);
     }
