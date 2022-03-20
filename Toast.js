@@ -10,9 +10,12 @@ export default class Toast {
   #toastElem;
   #autoCloseTimeout;
   #removeBinded;
+  #visibleSince;
+  #autoClose;
   constructor(options) {
     this.#toastElem = document.createElement("div");
     this.#toastElem.classList.add("toast");
+    this.#visibleSince = new Date();
     requestAnimationFrame(() => {
       this.#toastElem.classList.add("show");
     });
@@ -21,6 +24,7 @@ export default class Toast {
   }
 
   set autoClose(value) {
+    this.#autoClose = value;
     if (value == false) return;
     if (this.#autoCloseTimeout) clearTimeout(this.#autoCloseTimeout);
     this.#autoCloseTimeout = setTimeout(() => {
@@ -52,6 +56,17 @@ export default class Toast {
 
   set showProgress(value) {
     this.#toastElem.classList.toggle("progress", value);
+    this.#toastElem.style.setProperty("--progress", 1);
+
+    if (value) {
+      setInterval(() => {
+        const timeVisible = new Date() - this.#visibleSince;
+        this.#toastElem.style.setProperty(
+          "--progress",
+          timeVisible / this.#autoClose
+        );
+      }, 10);
+    }
   }
   update(options) {
     Object.entries(options).forEach(([key, value]) => {
