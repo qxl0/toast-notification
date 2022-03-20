@@ -8,7 +8,7 @@ document.querySelector("button").addEventListener("click", () => {
 
   setTimeout(() => {
     mytoast.update({
-      autoClose: 8000,
+      autoClose: 4000,
     });
   }, 1000);
 });

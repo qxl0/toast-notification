@@ -13,8 +13,10 @@ export default class Toast {
   #visibleSince;
   #autoClose;
   #progressInterval;
-  #pause = false;
-  #unpause = false;
+  #timeVisible = 0;
+  #pause;
+  #unpause;
+  #isPaused = false;
   #hoverPause;
   constructor(options) {
     this.#toastElem = document.createElement("div");
@@ -31,6 +33,7 @@ export default class Toast {
 
   set autoClose(value) {
     this.#autoClose = value;
+    this.#timeVisible = 0;
     if (value == false) return;
     if (this.#autoCloseTimeout) clearTimeout(this.#autoCloseTimeout);
     this.#autoCloseTimeout = setTimeout(() => {
@@ -65,23 +68,28 @@ export default class Toast {
     this.#toastElem.style.setProperty("--progress", 1);
 
     if (value) {
+      let lastTimeCalled = new Date();
+
       this.#progressInterval = setInterval(() => {
-        const timeVisible = new Date() - this.#visibleSince;
-        this.#toastElem.style.setProperty(
-          "--progress",
-          1 - timeVisible / this.#autoClose
-        );
+        if (!this.#isPaused) {
+          this.#timeVisible += new Date() - lastTimeCalled;
+          this.#toastElem.style.setProperty(
+            "--progress",
+            1 - this.#timeVisible / this.#autoClose
+          );
+        }
+        lastTimeCalled = new Date();
       }, 10);
     }
   }
 
   set pauseOnHover(value) {
     if (value) {
-      this.#toastElem.addEventListener("mouseover", this.#unpause);
-      this.#toastElem.addEventListener("mouseleave", this.#pause);
+      this.#toastElem.addEventListener("mouseover", this.#pause);
+      this.#toastElem.addEventListener("mouseleave", this.#unpause);
     } else {
-      this.#toastElem.removeEventListener("mouseover", this.#unpause);
       this.#toastElem.removeEventListener("mouseover", this.#pause);
+      this.#toastElem.removeEventListener("mouseover", this.#unpause);
     }
   }
   update(options) {
