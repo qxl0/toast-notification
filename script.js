@@ -5,11 +5,6 @@ document.querySelector("button").addEventListener("click", () => {
     Text: "Hello World",
     position: "top-right",
     pauseOnHover: true,
+    pauseOnFocusLoss: true,
   });
-
-  setTimeout(() => {
-    mytoast.update({
-      autoClose: 4000,
-    });
-  }, 1000);
 });

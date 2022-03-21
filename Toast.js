@@ -17,7 +17,7 @@ export default class Toast {
   #pause;
   #unpause;
   #isPaused = false;
-  #hoverPause;
+  #visibilityChange;
   constructor(options) {
     this.#toastElem = document.createElement("div");
     this.#toastElem.classList.add("toast");
@@ -28,6 +28,9 @@ export default class Toast {
     this.#removeBinded = this.remove.bind(this);
     this.#pause = () => (this.#isPaused = true);
     this.#unpause = () => (this.#isPaused = false);
+    this.#visibilityChange = () => {
+      this.#isPaused = document.visibilityState == "hidden";
+    };
     this.update({ ...DEFAULT_OPTIONS, ...options });
   }
 
@@ -90,6 +93,17 @@ export default class Toast {
     } else {
       this.#toastElem.removeEventListener("mouseover", this.#pause);
       this.#toastElem.removeEventListener("mouseover", this.#unpause);
+    }
+  }
+
+  set pauseOnFocusLoss(value) {
+    if (value) {
+      document.addEventListener("visibilitychange", this.#visibilityChange);
+    } else {
+      this.#toastElem.removeEventListener(
+        "visibilitychange",
+        this.#visibilityChange
+      );
     }
   }
   update(options) {
