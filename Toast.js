@@ -26,8 +26,8 @@ export default class Toast {
       this.#toastElem.classList.add("show");
     });
     this.#removeBinded = this.remove.bind(this);
-    this.#pause = () => (this.#pause = true);
-    this.#unpause = () => (this.#unpause = true);
+    this.#pause = () => (this.#isPaused = true);
+    this.#unpause = () => (this.#isPaused = false);
     this.update({ ...DEFAULT_OPTIONS, ...options });
   }
 
